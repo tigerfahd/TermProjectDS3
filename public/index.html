@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello, WebVR! - A-Frame</title>
+        <meta name="description" content="Hello, WebVR! - A-Frame">
+        <script src="/js/aframe.min.js"></script>
+        <script src="/js/spherical-env-map.js"></script>
+
+        <!-- lets load in our components -->
+        <!-- <script src="/js/create-cow-component.js"></script>
+        <script src="/js/remove-component.js"></script> -->
+    </head>
+    <body>
+        <!-- main scene and we added shadows .. -->
+        <a-scene shadow="type:basic;">
+                <a-assets timeout="3000">
+
+                    <!-- all assets that can be cached by browser -->
+                    <img crossorigin="anonymous" id="skymap" src="/assets/textures/Sky.png">
+                    <img crossorigin="anonymous" id="pyramidmap" src="/assets/textures/pyramid_Texture.png">
+                    <img crossorigin="anonymous" id="groundmap" src="/assets/textures/ground_V1.png">
+                    <img crossorigin="anonymous" id="marketmap" src="/assets/textures/MarketStall.png">
+                    <img crossorigin="anonymous" id="scrollmap" src="/assets/textures/Hieroglyphics.png">
+                    <a-asset-item crossorigin="anonymous" id="pyramid" src="/assets/models/pyramid_V2.obj">
+                    <a-asset-item crossorigin="anonymous" id="sphinx" src="/assets/models/Sphinx.obj">
+                    <a-asset-item crossorigin="anonymous" id="sphinxmap" src="/assets/textures/Sphinx.png">
+                    <a-asset-item crossorigin="anonymous" id="ground" src="/assets/models/ground_V1.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="marketstall" src="/assets/models/MarketStall.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="scroll" src="/assets/models/Hieroglyphics.obj"></a-asset-item>
+
+                    <!-- use this method if you are having problems with sound playing -->
+                    <!-- sounds from "SuperSays" project : https://github.com/supermedium/supersays/tree/master/src/assets -->
+                    <!-- <a-asset-item crossorigin="anonymous" id="create-sound" src="/assets/sound/0.ogg" response-type="arraybuffer"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="delete-sound" src="/assets/sound/1.ogg" response-type="arraybuffer"></a-asset-item> -->
+
+                    <!-- this is the recommended method to preload sound though the above method seems to work consistently -->
+                    <!-- <audio id="create-sound" crossorigin="anonymous" src="/assets/sound/0.ogg" ></audio> -->
+                    <!-- <audio id="delete-sound" crossorigin="anonymous" src="/assets/sound/1.ogg" ></audio> -->
+                </a-assets>
+
+                <!-- traditional method of creating a camera and cursor component for selection. select with reticle. -->
+                <!-- Also added in controls for desktop mouse/kb -->
+                <a-entity position="0 2 0 " camera look-controls wasd-controls>
+                    <!-- if you add rayOrigin:mouse to teh cursor properties selection happens where you click -->
+                    <!-- <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" -->
+                    <a-entity   cursor="fuse:true; fuseTimeout:500;"
+                                position="0 0 -1"
+                                geometry="primitive:ring; radiusInner:0.02; radiusOuter:0.03;"
+                                material="shader:flat; color:black;" >
+                    </a-entity>
+                </a-entity>
+
+                <!-- sound entities we will query and play in components -->
+                <!-- <a-entity id="createSound" sound="src:#create-sound"></a-entity>
+                <a-entity id="deleteSound" sound="src:#delete-sound"></a-entity> -->
+            
+                <!-- default lighting added in manually -->
+                <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
+                <a-entity light="type: ambient; intensity: 1.0; color:#bbb;"></a-entity>
+            
+                <!-- our helmet model from : https://github.com/KhronosGroup/glTF-Sample-Models -->
+                
+                <a-entity obj-model="obj: #sphinx; mtl: #sphinxmap" scale="0.03 0.03 0.03" position=" -15 0 -2" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.08 0.08 0.08" position=" 25 0 -40" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.08 0.08 0.08" position=" 5 0 -40" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.02 0.02 0.02" position=" 10 0 -17" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.02 0.02 0.02" position=" 20 0 -25" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.02 0.02 0.02" position=" 30 0 -15" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #ground" material ="src: #groundmap" scale="1 1 1" position=" 0 -3 0" shadow="receive:true;"></a-entity>
+                <a-entity obj-model="obj: #marketstall" material ="src: #marketmap" scale="1 1 1" position=" 10 0 -6" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #scroll" material ="src: #scrollmap" scale="0.04 0.04 0.04" position=" 10 1.1 -3" rotation="-90 0 0" shadow="cast:true; receive:true;"></a-entity>
+                <!-- plane so we can see shadows -->
+                <a-entity id="plane" geometry="primitive:plane; width:4; height:4;" position="0 0 -4" rotation="-90 0 0" 
+                    shadow="receive:true;" material="color:#7BC8A4; sphericalEnvMap:#skymap; roughness:0.5; metalness:0.0;"></a-entity>
+            
+                <!-- manual method of creating "sky sphere" -->
+                <a-entity id="sky"
+                    geometry="primitive:sphere; radius:500;"
+                    material="shader:flat; src:#skymap; side:back; height:2048; width:2048"></a-entity>
+        </a-scene>
+    </body>
+</html>
