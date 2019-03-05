@@ -5,25 +5,11 @@
         <meta name="description" content="Hello, WebVR! - A-Frame">
         <script src="/js/aframe.min.js"></script>
         <script src="/js/spherical-env-map.js"></script>
-        <script>
-            AFRAME.registerComponent('scale-on-mouseenter', {
-              schema: {
-                to: {default: '2.5 2.5 2.5'}
-              },
-          
-              init: function () {
-                var data = this.data;
-                this.el.addEventListener('mouseenter', function () {
-                  this.setAttribute('scale', data.to);
-                  console.log("click event"); 
-                });
-              }
-            });
-            </script>
+        <script src="/js/create-sound-component.js"></script>
+        <script src="/js/create-soundtwo-component.js"></script>
+        <!-- <script src="/js/create-background-component.js"></script> -->
+        <script src="/js/roll-dice-component.js"></script>
 
-        <!-- lets load in our components -->
-        <!-- <script src="/js/create-cow-component.js"></script>
-        <script src="/js/remove-component.js"></script> -->
     </head>
     <body>
         <!-- main scene and we added shadows .. -->
@@ -33,23 +19,23 @@
                     <!-- all assets that can be cached by browser -->
                     <img crossorigin="anonymous" id="skymap" src="/assets/textures/Sky.jpg">
                     <img crossorigin="anonymous" id="worldmap" src="/assets/textures/World.png">
-                    <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/World.obj"></a-asset-item>
-                    
-                    <!-- <img crossorigin="anonymous" id="pyramidmap" src="/assets/textures/pyramid_Texture.png">
-                    <img crossorigin="anonymous" id="groundmap" src="/assets/textures/ground_V1.png">
-                    <img crossorigin="anonymous" id="marketmap" src="/assets/textures/MarketStall.png">
+                    <img crossorigin="anonymous" id="cloudmap" src="/assets/textures/cloud.png">
+                    <img crossorigin="anonymous" id="dicemap" src="/assets/textures/dice.png">
                     <img crossorigin="anonymous" id="scrollmap" src="/assets/textures/Hieroglyphics.png">
-                    <a-asset-item crossorigin="anonymous" id="pyramid" src="/assets/models/pyramid_V2.obj">
-                    <a-asset-item crossorigin="anonymous" id="sphinx" src="/assets/models/Sphinx.obj">
-                    <a-asset-item crossorigin="anonymous" id="sphinxmap" src="/assets/textures/Sphinx.png">
-                    <a-asset-item crossorigin="anonymous" id="ground" src="/assets/models/ground_V1.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="marketstall" src="/assets/models/MarketStall.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="scroll" src="/assets/models/Hieroglyphics.obj"></a-asset-item> -->
-
-                    <!-- use this method if you are having problems with sound playing -->
-                    <!-- sounds from "SuperSays" project : https://github.com/supermedium/supersays/tree/master/src/assets -->
-                    <!-- <a-asset-item crossorigin="anonymous" id="create-sound" src="/assets/sound/0.ogg" response-type="arraybuffer"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="delete-sound" src="/assets/sound/1.ogg" response-type="arraybuffer"></a-asset-item> -->
+                    <img crossorigin="anonymous" id="doumbekmap" src="/assets/textures/doumbek_texture.png">
+                    <img crossorigin="anonymous" id="oudmap" src="/assets/textures/oud_texture.png">
+                    <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/World.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/dice.obj"></a-asset-item>
+                    <!-- <a-asset-item crossorigin="anonymous" id="cloud1" src="/assets/models/cloud1_V1.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="cloud2" src="/assets/models/cloud2_V1.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="cloud3" src="/assets/models/cloud3_V1.obj"></a-asset-item> -->
+                    <a-asset-item crossorigin="anonymous" id="scroll" src="/assets/models/Hieroglyphics.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="doumbek" src="/assets/models/Doumbek_Final.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="oud" src="/assets/models/Oud_Final.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
+                    <audio id="doumbekSound" crossorigin="anonymous" src="/assets/sound/Egypt/Doumbek.mp3" ></audio>
+                    <audio id="oudSound" crossorigin="anonymous" src="/assets/sound/Egypt/Oud.mp3" ></audio>
+                    <audio id="egyptSound" crossorigin="anonymous" src="/assets/sound/Egypt/Desert_Caravan (Trimmed).mp3" ></audio>
 
                     <!-- this is the recommended method to preload sound though the above method seems to work consistently -->
                     <!-- <audio id="create-sound" crossorigin="anonymous" src="/assets/sound/0.ogg" ></audio> -->
@@ -58,7 +44,7 @@
 
                 <!-- traditional method of creating a camera and cursor component for selection. select with reticle. -->
                 <!-- Also added in controls for desktop mouse/kb -->
-                <a-entity position="0 2 0 " camera look-controls wasd-controls>
+                <a-entity position="3 3 90 " camera look-controls wasd-controls>
                     <!-- if you add rayOrigin:mouse to teh cursor properties selection happens where you click -->
                     <!-- <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" -->
                     <a-entity   cursor="fuse:true; fuseTimeout:1000;"
@@ -69,8 +55,9 @@
                 </a-entity>
 
                 <!-- sound entities we will query and play in components -->
-                <!-- <a-entity id="createSound" sound="src:#create-sound"></a-entity>
-                <a-entity id="deleteSound" sound="src:#delete-sound"></a-entity> -->
+                <a-entity id="dSound" sound="src:#doumbekSound"></a-entity>
+                <a-entity id="oSound" sound="src:#oudSound"></a-entity>
+                <!-- <a-entity create-background-component id="eSound" sound="src:#egyptSound"></a-entity> -->
             
                 <!-- default lighting added in manually -->
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
@@ -78,24 +65,33 @@
             
                 <!-- our helmet model from : https://github.com/KhronosGroup/glTF-Sample-Models -->
                 
-                <!-- <a-entity obj-model="obj: #sphinx; mtl: #sphinxmap" scale="0.03 0.03 0.03" position=" -15 0 -2" shadow="cast:true; receive:true;"></a-entity> -->
-                <!-- <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.08 0.08 0.08" position=" 25 0 -40" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.08 0.08 0.08" position=" 5 0 -40" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.02 0.02 0.02" position=" 10 0 -17" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.02 0.02 0.02" position=" 20 0 -25" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity obj-model="obj: #pyramid" material ="src: #pyramidmap" scale="0.02 0.02 0.02" position=" 30 0 -15" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity obj-model="obj: #ground" material ="src: #groundmap" scale="1 1 1" position=" 0 -3 0" shadow="receive:true;"></a-entity> -->
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.1 0.1 0.1" position=" 0 0 0" shadow="cast:true; receive:true;"></a-entity>
-                <!-- <a-entity obj-model="obj: #scroll" material ="src: #scrollmap" scale="0.04 0.04 0.04" position=" 10 1.2 -3" rotation="-90 0 0" shadow="cast:true; receive:true;">
-                    <a-animation attribute="position" begin="mouseenter" to="10 1.8 -3" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                
+                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.1 0.1 0.1" position=" 0 -1 0" shadow="cast:true; receive:true;"></a-entity>
+                <!-- <a-entity obj-model="obj: #cloud1" material ="src: #cloudmap" scale="1 1 1" position=" 0 7 0" shadow="cast:true; receive:true;"> -->
+                    <!-- <a-animation attribute="position" to="30 3 0" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
+                <!-- </a-entity> -->
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="3 3 3" position=" 25 -0.5 58" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-sound-component obj-model="obj: #doumbek" material ="src: #doumbekmap" scale="2.5 2.5 2.5" position=" 20 1.2 48" rotation="45 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="20 1.8 48" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
                     <a-animation attribute="rotation" begin="mouseenter" dur="200" to="0 -90 0"></a-animation>
-                    <a-animation attribute="rotation" begin="click" dur="2000" to="360 225 45"></a-animation>
-                </a-entity> -->
+                    <!-- <a-animation attribute="rotation" begin="click" dur="2500" to="360 225 45"></a-animation> -->
+                </a-entity>
+                <a-entity create-soundtwo-component obj-model="obj: #oud" material ="src: #oudmap" scale="2.5 2.5 2.5" position=" 20 1.4 53" rotation="0 -90 -45" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="20 2 53" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="rotation" begin="mouseenter" dur="200" to="0 -90 0"></a-animation>
+                    <!-- <a-animation attribute="rotation" begin="click" dur="2500" to="360 225 45"></a-animation> -->
+                </a-entity>
+
+                <a-entity obj-model="obj: #scroll" material ="src: #scrollmap" scale="0.06 0.06 0.06" position=" 20 3 51" rotation="0 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="20 1.8 51" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="rotation" begin="mouseenter" dur="200" to="0 -90 0"></a-animation>
+                    <a-animation attribute="rotation" begin="click" dur="2500" to="360 225 45"></a-animation>
+                </a-entity>
+
                 <!-- plane so we can see shadows -->
-                <a-entity id="plane" geometry="primitive:plane; width:4; height:4;" position="0 0 -4" rotation="-90 0 0" 
-                    shadow="receive:true;" material="color:#7BC8A4; sphericalEnvMap:#skymap; roughness:0.5; metalness:0.0;"></a-entity>
+                <!-- <a-entity id="plane" geometry="primitive:plane; width:4; height:4;" position="0 0 -4" rotation="-90 0 0" 
+                    shadow="receive:true;" material="color:#7BC8A4; sphericalEnvMap:#skymap; roughness:0.5; metalness:0.0;"></a-entity> -->
             
-                <!-- manual method of creating "sky sphere" -->
                 <a-entity id="sky"
                     geometry="primitive:sphere; radius:500;"
                     material="shader:flat; src:#skymap; side:back; height:2048; width:2048"></a-entity>
