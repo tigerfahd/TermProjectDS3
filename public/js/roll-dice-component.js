@@ -13,7 +13,7 @@ AFRAME.registerComponent('roll-dice-component', {
     },
     rollDice : function() {
         const Context_AF = this;
-        location.replace("japan.html");
-        //note memmory may stay aroudn until "garbage collected" so consider pooling instead of deleting. See note in create-cow element
+        location.replace("japan.html"); 
+        
     }
 });
