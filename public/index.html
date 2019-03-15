@@ -7,7 +7,7 @@
         <script src="/js/spherical-env-map.js"></script>
   
         <!-- <script src="/js/create-background-component.js"></script> -->
-        <script src="/js/roll-dice-component.js"></script>
+        <script src="/js/roll-dice2-component.js"></script>
 
     </head>
     <body>
@@ -27,12 +27,8 @@
                 </a-assets>
 
                 <a-entity position="0 15 0 " camera look-controls wasd-controls>
-                    <!-- if you add rayOrigin:mouse to teh cursor properties selection happens where you click -->
-                    <!-- <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" -->
-                    <a-entity   cursor="fuse:true; fuseTimeout:1000;"
-                                position="0 0 -1"
-                                geometry="primitive:ring; radiusInner:0.02; radiusOuter:0.03;"
-                                material="shader:flat; color:black;" >
+               
+                    <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
                     </a-entity>
                 </a-entity>
 
@@ -43,9 +39,12 @@
                 
                 
                 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="22 22 22" position=" 0 -10 0" rotation="0,0,0"shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="22 22 22" position=" 0 -10 0" rotation="0 -45 0"shadow="cast:true; receive:true;"></a-entity>
          
-                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="5 16 -10" position=" 0 3 -5" shadow="cast:true; receive:true;"></a-entity> 
+                <a-entity roll-dice2-component obj-model="obj: #dice" material ="src: #dicemap" scale="2 2 2" position=" 0 13 -10" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" dur="500" to="0 12 -10"></a-animation>
+                    <a-animation attribute="rotation" begin="mouseenter" dur="500" to="360 -90 45"></a-animation>
+                </a-entity> 
                 
             
                 <a-entity id="sky"
