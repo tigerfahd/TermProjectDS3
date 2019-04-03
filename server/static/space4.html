@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Japan</title>
+        <meta name="description" content="Japan">
+        <script src="/js/aframe.min.js"></script>
+        <script src="/js/spherical-env-map.js"></script>
+        <script src="/js/roll-dice-component.js"></script>
+        <script src="/js/create-card-component.js"></script>
+        <script src="/js/remove-component.js"></script>
+        <script src="/js/create-sound-component.js"></script>
+        <script src="/js/create-backgroundSound-component.js"></script>
+        <script src="/js/create-soundtwo-component.js"></script>
+        <script src="/js/create-soundthree-component.js"></script>
+        <script src="/js/go-map-component.js"></script>
+        <script src="/js/spawn-in-circle.component.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+        <script src="easyrtc/easyrtc.js"></script>
+        <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+        
+        <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+
+       
+        
+    </head>
+    <body>
+
+        <a-scene networked-scene="  app: myApp;
+        room: room1;
+        debug: true;
+        adapter: easyrtc;"
+        shadow="type:basic;">
+                <a-assets timeout="10000">
+
+                    <!-- all assets that can be cached by browser -->
+                    <img crossorigin="anonymous" id="skymap" src="/assets/textures/SunsetSky.jpg">
+                    <img crossorigin="anonymous" id="worldmap" src="/assets/textures/Japan.png">
+                    <img crossorigin="anonymous" id="dicemap" src="/assets/textures/dice.png">
+                    <img crossorigin="anonymous" id="drummap" src="/assets/textures/denDenDaiko_texture.png">
+                    <img crossorigin="anonymous" id="katmap" src="/assets/textures/katana_tex.png">
+                    <img crossorigin="anonymous" id="shamisenmap" src="/assets/textures/shamisen_texture.png">
+                    <img crossorigin="anonymous" id="infomap" src="/assets/textures/infoBlock_texture.png">
+                    
+
+                    <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/japan.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="drum" src="/assets/models/denDenDaiko.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="kat" src="/assets/models/katana.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="shamisen" src="/assets/models/shamisen.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="globe" src="/assets/models/globe.obj"></a-asset-item>
+                    <img crossorigin="anonymous" id="globemap" src="/assets/textures/globe_texture.png">
+
+                    <audio id="denSound" crossorigin="anonymous" src="/assets/sound/Japan/Den Den Daiko Sound Effect.mp3" ></audio>
+                    <audio id="shamSound" crossorigin="anonymous" src="/assets/sound/Japan/Shamisen Sound Effect.mp3" ></audio>
+                    <audio id="katSound" crossorigin="anonymous" src="/assets/sound/Japan/Sword Sound Effect.mp3" ></audio>
+                    <audio id="japanSound" crossorigin="anonymous" src="/assets/sound/Japan/Japanese Background Music.mp3" ></audio>
+
+                    <template id="avatar-template">
+                        <a-entity class="avatar">
+                        <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="1 1 1" rotation="0 180 0" shadow="cast:true; receive:true;"></a-entity>
+                          </a-entity>
+                        </a-entity>
+                      </template>
+                      <img crossorigin="anonymous" id="snowmap" src="/assets/textures/snowman_tex.png">
+                    
+                      <a-asset-item crossorigin="anonymous" id="snowman" src="/assets/models/snowman.obj"></a-asset-item>
+                
+                </a-assets>
+
+                <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera position="13 20 170" spawn-in-circle="radius:3;" look-controls wasd-controls="acceleration: 270" >
+                    <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
+                    </a-entity>
+                </a-entity>
+
+                <a-entity id="dSound" sound="src:#denSound"></a-entity>
+                <a-entity id="oSound" sound="src:#shamSound"></a-entity>
+                <a-entity id="kSound" sound="src:#katSound"></a-entity>
+                <a-entity id="eSound" sound="src:#japanSound"></a-entity>
+            
+                    
+                <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
+                <a-entity light="type: ambient; intensity: 1.0; color:#bbb;"></a-entity>
+
+                <a-entity position="0 40 0" particle-system="preset: snow; texture: /assets/textures/petal.png; size:5; accelerationValue:0,20,0; velocityValue:0,50,0 color:#ffb5e2,#fc93d2;"></a-entity>
+                
+
+                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.18 0.18 0.18" position=" 0 -5 0" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="6 6 6" position=" 60 0.5 68" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="6 6 6" position=" 50 0.5 68" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="6 6 6" position=" 40 0.5 68" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-sound-component obj-model="obj: #drum" material ="src: #drummap" scale="2.5 2.5 2.5" position=" -121 11.8 -24" rotation="360 225 45" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="-120 14.8 -24" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+               
+                </a-entity>
+            
+                </a-entity>
+                <a-entity create-soundthree-component obj-model="obj: #kat" material ="src: #katmap" scale="0.04 0.04 0.04" position=" -121 7.8 -6" rotation="0 90 35" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="-120 12.8 -6" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    
+                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="360 225 45"></a-animation>
+                </a-entity>
+
+                <a-entity create-soundtwo-component obj-model="obj: #shamisen" material ="src: #shamisenmap" scale="2.5 2.5 2.5" position=" -121 11.8 -46" rotation="45 90 45" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="-120 14.8 -46" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+        
+                </a-entity>
+
+            
+                <a-entity id="sky"
+                    geometry="primitive:sphere; radius:600;"
+                    material="shader:flat; src:#skymap; side:back; height:2048; width:2048"></a-entity>
+        </a-scene>
+        <script>
+            
+            NAF.schemas.add({
+              template: '#avatar-template',
+              components: [
+                'position',
+                'rotation'
+              ]
+            });
+        </script>
+    </body>
+</html>

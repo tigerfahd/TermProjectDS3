@@ -27,8 +27,8 @@ AFRAME.registerComponent('create-card-component', {
               break;
             case 2:
                 cardEl.setAttribute('obj-model', {obj:'/assets/models/card.obj'});
-                cardEl.setAttribute('material', {src:'/assets/textures/propertyCard_tex.jpg'});
-                cardEl.setAttribute('position', {x:15, y:6, z:58});
+                cardEl.setAttribute('material', {src:'/assets/textures/PropertyCard_Egypt.png'});
+                cardEl.setAttribute('position', {x:6, y:-1, z:32});
               break;
             case 3:
                 cardEl.setAttribute('obj-model', {obj:'/assets/models/card.obj'});
@@ -41,20 +41,34 @@ AFRAME.registerComponent('create-card-component', {
                 cardEl.setAttribute('position', {x:15, y:2, z:48});
               break;
             case 5:
-                cardEl.setAttribute('material', {src:'/assets/textures/propertyCard_tex.png'});
+                cardEl.setAttribute('obj-model', {obj:'/assets/models/PropertyCard_Japan.obj'});
+                cardEl.setAttribute('material', {src:'/assets/textures/PropertyCard_Japan.png'});
+                cardEl.setAttribute('position', {x:15, y:2, z:48});
               break;
             case 6:
-                cardEl.setAttribute('material', {src:'/assets/textures/PropertyCard_Greece.jpg'});
+                cardEl.setAttribute('obj-model', {obj:'/assets/models/PropertyCard_Japan.obj'});
+                cardEl.setAttribute('material', {src:'/assets/textures/PropertyCard_Japan.png'});
+                cardEl.setAttribute('position', {x:15, y:2, z:48});
               break;
             case 7:
-                cardEl.setAttribute('material', {src:'/assets/textures/propertyCard_tex.jpg'});
+                cardEl.setAttribute('obj-model', {obj:'/assets/models/PropertyCard_Japan.obj'});
+                cardEl.setAttribute('material', {src:'/assets/textures/PropertyCard_Japan.png'});
+                cardEl.setAttribute('position', {x:15, y:2, z:48});
+              break;
+            case 8:
+                cardEl.setAttribute('obj-model', {obj:'/assets/models/PropertyCard_Japan.obj'});
+                cardEl.setAttribute('material', {src:'/assets/textures/PropertyCard_Japan.png'});
+                cardEl.setAttribute('position', {x:15, y:2, z:48});
+              break;
+            case 9:
+                cardEl.setAttribute('obj-model', {obj:'/assets/models/PropertyCard_Japan.obj'});
+                cardEl.setAttribute('material', {src:'/assets/textures/PropertyCard_Japan.png'});
+                cardEl.setAttribute('position', {x:15, y:2, z:48});
               break;
           }
         
         cardEl.setAttribute('remove-component', {}); 
-        
-        cardEl.setAttribute('scale', {x:0.1, y:0.1, z:0.1});
-        
+        cardEl.setAttribute('scale', {x:0.04, y:0.04, z:0.04});
         let scene = document.querySelector('a-scene');
         scene.appendChild(cardEl);
     }

@@ -5,17 +5,15 @@
         <meta name="description" content="Arctic Ocean">
         <script src="/js/aframe.min.js"></script>
         <script src="/js/spherical-env-map.js"></script>
-  
-        <!-- <script src="/js/create-background-component.js"></script> -->
         <script src="/js/roll-dice-component.js"></script>
 
     </head>
     <body>
-        <!-- main scene and we added shadows .. -->
+        
         <a-scene shadow="type:basic;">
                 <a-assets timeout="3000">
 
-                    <!-- all assets that can be cached by browser -->
+                    
                     <img crossorigin="anonymous" id="skymap" src="/assets/textures/NightSky.jpg">
                     <img crossorigin="anonymous" id="worldmap" src="/assets/textures/arctic_tex.png">
                     <img crossorigin="anonymous" id="boatmap" src="/assets/textures/boat_tex.png">
@@ -30,8 +28,7 @@
                 <a-entity position="0 25 340" camera look-controls wasd-controls="acceleration: 270">
                     <a-animation attribute="position" to="0 15 -345" direction="alternate" dur="60000" repeat="indefinite"></a-animation>
               
-                    <!-- if you add rayOrigin:mouse to teh cursor properties selection happens where you click -->
-                    <!-- <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" -->
+                    
                     <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
                     </a-entity>
                 </a-entity>

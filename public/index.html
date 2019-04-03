@@ -5,17 +5,53 @@
         <meta name="description" content="Hello, WebVR! - A-Frame">
         <script src="/js/aframe.min.js"></script>
         <script src="/js/spherical-env-map.js"></script>
-  
-        <!-- <script src="/js/create-background-component.js"></script> -->
         <script src="/js/roll-dice2-component.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+        <script src="easyrtc/easyrtc.js"></script>
+        <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+        <script>
+            AFRAME.registerComponent('spawn-in-circle', {
+              schema: {
+                radius: {type: 'number', default: 1}
+              },
+            
+              init: function() {
+                var el = this.el;
+                var center = el.getAttribute('position');
+            
+                var angleRad = this.getRandomAngleInRadians();
+                var circlePoint = this.randomPointOnCircle(this.data.radius, angleRad);
+                var worldPoint = {x: circlePoint.x + center.x, y: center.y, z: circlePoint.y + center.z};
+                el.setAttribute('position', worldPoint);
+            
+                var angleDeg = angleRad * 180 / Math.PI;
+                var angleToCenter = -1 * angleDeg + 90;
+                var rotationStr = '0 ' + angleToCenter + ' 0';
+                el.setAttribute('rotation', rotationStr);
+              },
+            
+              getRandomAngleInRadians: function() {
+                return Math.random()*Math.PI*2;
+              },
+            
+              randomPointOnCircle: function (radius, angleRad) {
+                x = Math.cos(angleRad)*radius;
+                y = Math.sin(angleRad)*radius;
+                return {x: x, y: y};
+              }
+            });
+            </script>
 
     </head>
     <body>
-        <!-- main scene and we added shadows .. -->
-        <a-scene shadow="type:basic;">
-                <a-assets timeout="3000">
+       
+        <a-scene networked-scene="  app: myApp;
+        room: room1;
+        debug: true;
+        adapter: easyrtc;" 
+        shadow="type:basic;">
+                <a-assets timeout="10000">
 
-                    <!-- all assets that can be cached by browser -->
                     <img crossorigin="anonymous" id="skymap" src="/assets/textures/Sky.jpg">
                     <img crossorigin="anonymous" id="worldmap" src="/assets/textures/goSpace_texture.png">
                    
@@ -23,11 +59,20 @@
                     
                     <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/goSpace.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
-               
+                    
+                    <template id="avatar-template">
+                        <a-entity class="avatar">
+                        <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="1 1 1" shadow="cast:true; receive:true;"></a-entity>
+                          </a-entity>
+                        </a-entity>
+                      </template>
+                      <img crossorigin="anonymous" id="snowmap" src="/assets/textures/snowman_tex.png">
+                    
+                      <a-asset-item crossorigin="anonymous" id="snowman" src="/assets/models/snowman.obj"></a-asset-item>
+              
+                   
                 </a-assets>
-
-                <a-entity position="0 15 0 " camera look-controls wasd-controls>
-               
+                <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera position="0 15 0" spawn-in-circle="radius:3;" wasd-controls look-controls>
                     <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
                     </a-entity>
                 </a-entity>
@@ -51,5 +96,15 @@
                     geometry="primitive:sphere; radius:500;"
                     material="shader:flat; src:#skymap; side:back; height:2048; width:2048"></a-entity>
         </a-scene>
+        <script>
+            // Define custom schema for syncing avatar
+            NAF.schemas.add({
+              template: '#avatar-template',
+              components: [
+                'position',
+                'rotation'
+              ]
+            });
+          </script>
     </body>
 </html>

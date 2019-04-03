@@ -6,6 +6,13 @@
         <script src="/js/aframe.min.js"></script>
         <script src="/js/spherical-env-map.js"></script>
         <script src="/js/roll-dice-component.js"></script>
+        <script src="/js/create-card-component.js"></script>
+        <script src="/js/remove-component.js"></script>
+        <script src="/js/create-sound-component.js"></script>
+        <script src="/js/create-backgroundSound-component.js"></script>
+        <script src="/js/create-soundtwo-component.js"></script>
+        <script src="/js/create-soundthree-component.js"></script>
+        <script src="/js/go-map-component.js"></script>
         
         <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
         <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>  
@@ -17,65 +24,82 @@
         <a-scene networked-scene shadow="type:basic;">
                 <a-assets timeout="10000">
 
-                    <!-- all assets that can be cached by browser -->
+                    
                     <img crossorigin="anonymous" id="skymap" src="/assets/textures/GreeceSky.png">
                     <img crossorigin="anonymous" id="worldmap" src="/assets/textures/Greece_tex4.png">
                     <img crossorigin="anonymous" id="dicemap" src="/assets/textures/dice.png">
-                    <!-- <img crossorigin="anonymous" id="drummap" src="/assets/textures/denDenDaiko_texture.png">
-                    <img crossorigin="anonymous" id="katmap" src="/assets/textures/katana_tex.png">
-                    <img crossorigin="anonymous" id="shamisenmap" src="/assets/textures/shamisen_texture.png"> -->
-                    
+                    <img crossorigin="anonymous" id="guitarmap" src="/assets/textures/guitar_tex.png">
+                    <img crossorigin="anonymous" id="zurnamap" src="/assets/textures/zurna_texture.png">
+                    <img crossorigin="anonymous" id="potterymap" src="/assets/textures/Pottery.png">
+                    <img crossorigin="anonymous" id="pottery2map" src="/assets/textures/Pottery2.jpg">
+                    <img crossorigin="anonymous" id="pottery3map" src="/assets/textures/Pottery3.jpg">
+                    <img crossorigin="anonymous" id="infomap" src="/assets/textures/infoBlock_texture.png">
+                    <img crossorigin="anonymous" id="globemap" src="/assets/textures/globe_texture.png">
 
                     <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/Greece_V3.obj"></a-asset-item>
-                    <!-- <a-asset-item crossorigin="anonymous" id="drum" src="/assets/models/denDenDaiko.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="kat" src="/assets/models/katana.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="shamisen" src="/assets/models/shamisen.obj"></a-asset-item> -->
-                
+                    <a-asset-item crossorigin="anonymous" id="zurna" src="/assets/models/zurna.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="guitar" src="/assets/models/guitar.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="pottery" src="/assets/models/Pottery.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="globe" src="/assets/models/globe.obj"></a-asset-item>
 
-                    <!-- this is the recommended method to preload sound though the above method seems to work consistently -->
-                    <!-- <audio id="create-sound" crossorigin="anonymous" src="/assets/sound/0.ogg" ></audio> -->
-                    <!-- <audio id="delete-sound" crossorigin="anonymous" src="/assets/sound/1.ogg" ></audio> -->
+                    <audio id="zurnaSound" crossorigin="anonymous" src="/assets/sound/Greece/Zurna.mp3" ></audio>
+                    <audio id="swooshSound" crossorigin="anonymous" src="/assets/sound/Greece/swoosh.mp3" ></audio>
+                    <audio id="guitarSound" crossorigin="anonymous" src="/assets/sound/Greece/Guitar.mp3" ></audio>
+                    <audio id="greeceSound" crossorigin="anonymous" src="/assets/sound/Greece/GreekMusic.mp3" ></audio>
+                    
+            
                 </a-assets>
                
-                <!-- traditional method of creating a camera and cursor component for selection. select with reticle. -->
-                <!-- Also added in controls for desktop mouse/kb -->
-                <a-entity  position="13 20 170 " camera look-controls wasd-controls="acceleration: 270">
-                    <!-- if you add rayOrigin:mouse to teh cursor properties selection happens where you click -->
-                    <!-- <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" -->
+        
+                <a-entity  position="32 15 170 " camera look-controls wasd-controls="acceleration: 270">
+                    
                     <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
                     </a-entity>
                 </a-entity>
-
-                <!-- sound entities we will query and play in components -->
-                <!-- <a-entity id="createSound" sound="src:#create-sound"></a-entity>
-                <a-entity id="deleteSound" sound="src:#delete-sound"></a-entity> -->
-            
+                
+                <a-entity id="dSound" sound="src:#zurnaSound"></a-entity>
+                <a-entity id="oSound" sound="src:#swooshSound"></a-entity>
+                <a-entity id="kSound" sound="src:#guitarSound"></a-entity>
+                <a-entity id="eSound" sound="src:#greeceSound"></a-entity>
                     
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 1.0; color:#bbb;"></a-entity>
 
-                <!-- <a-entity position="0 40 0" particle-system="preset: snow; texture: /assets/textures/petal.png; size:5; accelerationValue:0,20,0; velocityValue:0,50,0 color:#ffb5e2,#fc93d2;"></a-entity> -->
                 
 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.25 0.25 0.25" rotation="0 180 0" position=" 0 -5 0" shadow="cast:true; receive:true;"></a-entity>
-                <!-- <a-entity obj-model="obj: #cloud1" material ="src: #cloudmap" scale="1 1 1" position=" 0 7 0" shadow="cast:true; receive:true;"> -->
-                    <!-- <a-animation attribute="position" to="30 3 0" direction="alternate" dur="2000" repeat="indefinite"></a-animation> -->
-                <!-- </a-entity> -->
-                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="3 3 3" position=" 25 -0.5 38" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.25 0.25 0.25" rotation="0 180 0" position=" 0 -20 0" shadow="cast:true; receive:true;"></a-entity>
                 
+                <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="6 6 6" position=" 74 -2 99" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="6 6 6" position=" 63 0.5 99" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="6 6 6" position=" 54 0.5 99" shadow="cast:true; receive:true;"></a-entity>
+                
+                <a-entity create-soundthree-component obj-model="obj: #guitar" material ="src: #guitarmap" scale="0.1 0.1 0.1" position=" -38 0.76 90" rotation="360 225 45" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="-38 4.8 90" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="scale" begin="mouseenter" to="0.14 0.14 0.14" dur="800"></a-animation>
+                    <a-animation attribute="scale" begin="mouseleave" to="0.1 0.1 0.1" dur="800"></a-animation>
+               
+                </a-entity>
             
-                <!-- </a-entity>
-                <a-entity obj-model="obj: #kat" material ="src: #katmap" scale="0.04 0.04 0.04" position=" -121 7.8 -6" rotation="0 90 35" shadow="cast:true; receive:true;">
-                    <a-animation attribute="position" begin="mouseenter" to="-120 12.8 -6" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                </a-entity>
+                <a-entity create-sound-component obj-model="obj: #zurna" material ="src: #zurnamap" scale="1 1 1" position=" 93 12 109" rotation="78 90 90" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="93 13 109" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="450 225 -25"></a-animation>
                     
-                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="360 225 45"></a-animation>
                 </a-entity>
 
-                <a-entity obj-model="obj: #shamisen" material ="src: #shamisenmap" scale="2.5 2.5 2.5" position=" -121 11.8 -46" rotation="45 90 45" shadow="cast:true; receive:true;">
-                    <a-animation attribute="position" begin="mouseenter" to="-120 14.8 -46" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-        
-                </a-entity> -->
+                <a-entity create-soundtwo-component obj-model="obj: #pottery" material ="src: #potterymap" scale="0.03 0.03 0.03" position=" 91 6 109" rotation="0 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="91 7 109" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="490 225 -165"></a-animation>
+                </a-entity>
+                <a-entity create-soundtwo-component obj-model="obj: #pottery" material ="src: #pottery2map" scale="0.03 0.03 0.03" position=" 95 6 109" rotation="0 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="95 7 109" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="490 225 -165"></a-animation>
+                </a-entity>
+                <a-entity create-soundtwo-component obj-model="obj: #pottery" material ="src: #pottery3map" scale="0.03 0.03 0.03" position=" 100 6 109" rotation="0 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="100 7 109" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="490 225 -165"></a-animation>
+                </a-entity>
 
             
                 <a-entity id="sky"
