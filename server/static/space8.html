@@ -53,10 +53,10 @@
                     <a-asset-item crossorigin="anonymous" id="tealight" src="/assets/models/tealight.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="globe" src="/assets/models/globe.obj"></a-asset-item>
                       
-                    <!-- <audio id="kanSound" crossorigin="anonymous" src="/assets/sound/India/Zurna.mp3" ></audio>
-                    <audio id="tablaSound" crossorigin="anonymous" src="/assets/sound/India/swoosh.mp3" ></audio>
-                    <audio id="tanpuraSound" crossorigin="anonymous" src="/assets/sound/India/Guitar.mp3" ></audio>
-                    <audio id="indiaSound" crossorigin="anonymous" src="/assets/sound/India/GreekMusic.mp3" ></audio> -->
+                    <audio id="kanSound" crossorigin="anonymous" src="/assets/sound/India/kanjira.mp3" ></audio>
+                    <audio id="tablaSound" crossorigin="anonymous" src="/assets/sound/India/tabla.mp3" ></audio>
+                    <audio id="tanpuraSound" crossorigin="anonymous" src="/assets/sound/India/tanpura.mp3" ></audio>
+                    <audio id="indiaSound" crossorigin="anonymous" src="/assets/sound/India/Hanuman Chalisa.mp3" ></audio>
 
                     <template id="avatar-template">
                         <a-entity class="avatar">
@@ -73,7 +73,11 @@
                     <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
                     </a-entity>
                 </a-entity>
-    
+                
+                <a-entity id="dSound" sound="src:#tablaSound"></a-entity>
+                <a-entity id="oSound" sound="src:#tanpuraSound"></a-entity>
+                <a-entity id="kSound" sound="src:#kanSound"></a-entity>
+                <a-entity id="eSound" sound="src:#indiaSound"></a-entity>
                     
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 0.8; color:#bbb;"></a-entity>
@@ -85,23 +89,23 @@
                 <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="12 12 12" position=" -308 0.5 290" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="12 12 12" position=" -292 0.5 290" shadow="cast:true; receive:true;"></a-entity>
                 
-                <a-entity create-soundthree-component obj-model="obj: #kanjira" material ="src: #kanmap" scale="10 10 10" position=" 5 25 155" rotation="0 0 0" shadow="cast:true; receive:true;">
-                    <!-- <a-animation attribute="position" begin="mouseenter" to="-38 4.8 90" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-                    <a-animation attribute="scale" begin="mouseenter" to="0.14 0.14 0.14" dur="800"></a-animation>
-                    <a-animation attribute="scale" begin="mouseleave" to="0.1 0.1 0.1" dur="800"></a-animation> -->
+                <a-entity create-soundthree-component obj-model="obj: #kanjira" material ="src: #kanmap" scale="10 10 10" position=" 5 27 155" rotation="0 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="rotation" begin="mouseenter" to="90 0 0"></a-animation>
+                    <a-animation attribute="position" begin="mouseenter" to="5 50 155" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    
                
                 </a-entity>
             
                 </a-entity>
                 <a-entity create-sound-component obj-model="obj: #tabla" material ="src: #tablamap" scale="8 8 8" position=" 81.5 23.5 154" rotation="0 0 0" shadow="cast:true; receive:true;">
-                    <!-- <a-animation attribute="position" begin="mouseenter" to="93 13 109" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="450 225 -25"></a-animation> -->
+                    <a-animation attribute="position" begin="mouseenter" to="81.5 35.5 154" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="scale" begin="mouseenter" dur="1000" to="11 11 11"></a-animation>
+                    <a-animation attribute="scale" begin="mouseleave" dur="1000" to="8 8 8"></a-animation>
                     
                 </a-entity>
 
                 <a-entity create-soundtwo-component obj-model="obj: #tanpura" material ="src: #tanmap" scale="7 7 7" position=" 190 27 177" rotation="0 0 45" shadow="cast:true; receive:true;">
-                    <!-- <a-animation attribute="position" begin="mouseenter" to="91 7 109" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="490 225 -165"></a-animation> -->
+                    <a-animation attribute="position" begin="mouseenter" to="190 36 177" direction="alternate" dur="2000" repeat="indefinite"></a-animation>   
                 </a-entity>
 
                 <a-entity obj-model="obj: #tealight" material ="src: #teamap" scale="10 10 10" position=" -280 -17 59" rotation="0 0 0" shadow="cast:true; receive:true;">
@@ -116,13 +120,11 @@
                     <a-animation attribute="position" to="244 -17.4 -273" easing="linear" direction="alternate" dur="75000" repeat="indefinite"></a-animation>
                     
                 </a-entity>
-                <a-entity obj-model="obj: #tealight" material ="src: #tea4map" scale="12 12 12" position=" 91 -17 109" rotation="0 0 0" shadow="cast:true; receive:true;">
-                    
+                <a-entity obj-model="obj: #tealight" material ="src: #tea4map" scale="12 12 12" position=" 311.5 -17 -440" rotation="0 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" to="311.5 -17 457" easing="linear" direction="alternate" dur="75000" repeat="indefinite"></a-animation>
                     
                 </a-entity>
               
-                
-                
             
                 <a-entity id="sky"
                     geometry="primitive:sphere; radius:700;"

@@ -30,32 +30,27 @@
                 <a-assets timeout="10000">
 
 
-                    <img crossorigin="anonymous" id="skymap" src="/assets/textures/SunsetSky.jpg">
-                    <img crossorigin="anonymous" id="worldmap" src="/assets/textures/IndiaWorld.png">
+                    <img crossorigin="anonymous" id="skymap" src="/assets/textures/NightSky.jpg">
+                    <img crossorigin="anonymous" id="worldmap" src="/assets/textures/peruWorld_texture.png">
                     <img crossorigin="anonymous" id="dicemap" src="/assets/textures/dice.png">
-                    <img crossorigin="anonymous" id="kanmap" src="/assets/textures/kanjira_texture.png">
-                    <img crossorigin="anonymous" id="tablamap" src="/assets/textures/tabla_texture.png">
-                    <img crossorigin="anonymous" id="tanmap" src="/assets/textures/tanpura_tex2.png">
-                    <img crossorigin="anonymous" id="teamap" src="/assets/textures/tealight_texture1.png">
-                    <img crossorigin="anonymous" id="tea2map" src="/assets/textures/tealight_texture2.png">
-                    <img crossorigin="anonymous" id="tea3map" src="/assets/textures/tealight_texture3.png">
-                    <img crossorigin="anonymous" id="tea4map" src="/assets/textures/tealight_texture4.png">
+                    <img crossorigin="anonymous" id="panmap" src="/assets/textures/panFlute_tex2.png">
+                    <img crossorigin="anonymous" id="charmap" src="/assets/textures/charango_texture.png">
+                    <img crossorigin="anonymous" id="quenamap" src="/assets/textures/Quena.png">
                     <img crossorigin="anonymous" id="infomap" src="/assets/textures/infoBlock_texture.png">
                     <img crossorigin="anonymous" id="globemap" src="/assets/textures/globe_texture.png">
                     
 
                     <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/IndiaWorld.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="kanjira" src="/assets/models/kanjira.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="tabla" src="/assets/models/tabla.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="tanpura" src="/assets/models/tanpura.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="tealight" src="/assets/models/tealight.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/peruWorld.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="pan" src="/assets/models/panFlute.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="char" src="/assets/models/charango.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="quena" src="/assets/models/Quena.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="globe" src="/assets/models/globe.obj"></a-asset-item>
                       
-                    <!-- <audio id="kanSound" crossorigin="anonymous" src="/assets/sound/India/Zurna.mp3" ></audio>
-                    <audio id="tablaSound" crossorigin="anonymous" src="/assets/sound/India/swoosh.mp3" ></audio>
-                    <audio id="tanpuraSound" crossorigin="anonymous" src="/assets/sound/India/Guitar.mp3" ></audio>
-                    <audio id="indiaSound" crossorigin="anonymous" src="/assets/sound/India/GreekMusic.mp3" ></audio> -->
+                    <audio id="panSound" crossorigin="anonymous" src="/assets/sound/Peru/panFlute.mp3" ></audio>
+                    <audio id="charSound" crossorigin="anonymous" src="/assets/sound/Peru/charango.mp3" ></audio>
+                    <audio id="quenaSound" crossorigin="anonymous" src="/assets/sound/Peru/quena.mp3" ></audio>
+                    <audio id="peruSound" crossorigin="anonymous" src="/assets/sound/Peru/peru.mp3" ></audio>
 
                     <template id="avatar-template">
                         <a-entity class="avatar">
@@ -69,65 +64,45 @@
                    
                 </a-assets>
 
-                <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera position="-151 43 540" spawn-in-circle="radius:3;" look-controls wasd-controls="acceleration: 270" >
+                <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera position="-1 10 442" spawn-in-circle="radius:3;" look-controls wasd-controls="acceleration: 270" >
                     <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
                     </a-entity>
                 </a-entity>
-    
-                <a-entity  position="-151 43 540 " camera look-controls wasd-controls="acceleration: 470">
-                    <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
-                    </a-entity>
-                </a-entity>
+
+                <a-entity id="dSound" sound="src:#panSound"></a-entity>
+                <a-entity id="oSound" sound="src:#charSound"></a-entity>
+                <a-entity id="kSound" sound="src:#quenaSound"></a-entity>
+                <a-entity id="eSound" sound="src:#peruSound"></a-entity>
                     
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 0.8; color:#bbb;"></a-entity>
                 
 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.6 0.6 0.6" rotation="0 -90 0" position=" 0 -20 0" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.3 0.3 0.3" rotation="0 -90 0" position=" 0 -5 192" shadow="cast:true; receive:true;"></a-entity>
                 
-                <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="12 12 12" position=" -331 -3 290" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="12 12 12" position=" -308 0.5 290" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="12 12 12" position=" -292 0.5 290" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="5 5 5" position=" 60 -1 383" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="5 5 5" position=" 70 -2 383" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="5 5 5" position=" 80 -2 383" shadow="cast:true; receive:true;"></a-entity>
                 
-                <a-entity create-soundthree-component obj-model="obj: #kanjira" material ="src: #kanmap" scale="10 10 10" position=" 5 25 155" rotation="0 0 0" shadow="cast:true; receive:true;">
-                    <!-- <a-animation attribute="position" begin="mouseenter" to="-38 4.8 90" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-                    <a-animation attribute="scale" begin="mouseenter" to="0.14 0.14 0.14" dur="800"></a-animation>
-                    <a-animation attribute="scale" begin="mouseleave" to="0.1 0.1 0.1" dur="800"></a-animation> -->
+                <a-entity create-sound-component obj-model="obj: #pan" material ="src: #panmap" scale="0.1 0.1 0.1" position=" 25 8 344" rotation="35 0 90" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="25 9 344" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    <a-animation attribute="rotation" begin="mouseenter" to="0 360 90"></a-animation>
                
                 </a-entity>
             
                 </a-entity>
-                <a-entity create-sound-component obj-model="obj: #tabla" material ="src: #tablamap" scale="8 8 8" position=" 81.5 23.5 154" rotation="0 0 0" shadow="cast:true; receive:true;">
-                    <!-- <a-animation attribute="position" begin="mouseenter" to="93 13 109" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="450 225 -25"></a-animation> -->
+                <a-entity create-soundtwo-component obj-model="obj: #char" material ="src: #charmap" scale="5 5 5" position=" 25 8 382" rotation="0 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="rotation" begin="mouseenter" dur="1000" to="0 0 90"></a-animation> 
+                    <a-animation attribute="position" begin="mouseenter" to="25 9 382" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    
                     
                 </a-entity>
 
-                <a-entity create-soundtwo-component obj-model="obj: #tanpura" material ="src: #tanmap" scale="7 7 7" position=" 190 27 177" rotation="0 0 45" shadow="cast:true; receive:true;">
-                    <!-- <a-animation attribute="position" begin="mouseenter" to="91 7 109" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
-                    <a-animation attribute="rotation" begin="mouseenter" dur="2500" to="490 225 -165"></a-animation> -->
+                <a-entity create-soundthree-component obj-model="obj: #quena" material ="src: #quenamap" scale="0.5 0.5 0.5" position="-27 8 375" rotation="0 90 25" shadow="cast:true; receive:true;">
+                   <a-animation attribute="position" begin="mouseenter" to="-27 9 375" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
                 </a-entity>
 
-                <a-entity obj-model="obj: #tealight" material ="src: #teamap" scale="10 10 10" position=" -280 -17 59" rotation="0 0 0" shadow="cast:true; receive:true;">
-                   <a-animation attribute="position" begin="mouseenter" to="409 -17 59" easing="linear" direction="alternate" dur="75000" repeat="indefinite"></a-animation>
-                    
-                </a-entity>
-                <a-entity obj-model="obj: #tealight" material ="src: #tea2map" scale="10 10 10" position=" -250 -17 68" rotation="0 0 0" shadow="cast:true; receive:true;">
-                    <a-animation attribute="position" begin="mouseenter" to="409 -17 68" easing="linear" direction="alternate" dur="75000" repeat="indefinite"></a-animation>
-                    
-                </a-entity>
-                <a-entity obj-model="obj: #tealight" material ="src: #tea3map" scale="10 10 10" position=" 244 -17.4 335" rotation="0 0 0" shadow="cast:true; receive:true;">
-                    <a-animation attribute="position" to="244 -17.4 -273" easing="linear" direction="alternate" dur="75000" repeat="indefinite"></a-animation>
-                    
-                </a-entity>
-                <a-entity obj-model="obj: #tealight" material ="src: #tea4map" scale="12 12 12" position=" 91 -17 109" rotation="0 0 0" shadow="cast:true; receive:true;">
-                    
-                    
-                </a-entity>
-              
-                
-                
-            
+               
                 <a-entity id="sky"
                     geometry="primitive:sphere; radius:700;"
                     material="shader:flat; src:#skymap; side:back; height:2048; width:2048"

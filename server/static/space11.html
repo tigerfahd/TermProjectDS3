@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Antarctica</title>
+        <meta name="description" content="Antarctica">
+        <script src="/js/aframe.min.js"></script>
+        <script src="/js/spherical-env-map.js"></script>
+        <script src="/js/roll-dice-component.js"></script>
+        <script src="/js/create-card-component.js"></script>
+        <script src="/js/remove-component.js"></script>
+        <script src="/js/create-sound-component.js"></script>
+        <script src="/js/create-backgroundSound-component.js"></script>
+        <script src="/js/create-soundtwo-component.js"></script>
+        <script src="/js/create-soundthree-component.js"></script>
+        <script src="/js/go-map-component.js"></script>
+        <script src="/js/spawn-in-circle.component.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+        <script src="easyrtc/easyrtc.js"></script>
+        <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+       
+        
+    </head>
+    <body>
+
+        <a-scene networked-scene="  app: myApp;
+        room: room1;
+        debug: true;
+        adapter: easyrtc;"
+        shadow="type:basic;">
+                <a-assets timeout="10000">
+
+
+                    <img crossorigin="anonymous" id="skymap" src="/assets/textures/GreeceSky.png">
+                    <img crossorigin="anonymous" id="worldmap" src="/assets/textures/jamaica_tex.png">
+                    <img crossorigin="anonymous" id="dicemap" src="/assets/textures/dice.png">
+                    <img crossorigin="anonymous" id="steelmap" src="/assets/textures/steelDrums_texture.png">
+                    <img crossorigin="anonymous" id="marmap" src="/assets/textures/Maraca.png">
+                    <img crossorigin="anonymous" id="banjomap" src="/assets/textures/banjo_tex.png">
+                    <img crossorigin="anonymous" id="infomap" src="/assets/textures/infoBlock_texture.png">
+                    <img crossorigin="anonymous" id="globemap" src="/assets/textures/globe_texture.png">
+                    
+
+                    <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/jamaica.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="steel" src="/assets/models/steelDrums.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="mar" src="/assets/models/Maraca.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="banjo" src="/assets/models/banjo.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="globe" src="/assets/models/globe.obj"></a-asset-item>
+                      
+                    <audio id="drumSound" crossorigin="anonymous" src="/assets/sound/Antarctica/seal.mp3" ></audio>
+                    <audio id="marSound" crossorigin="anonymous" src="/assets/sound/Antarctica/orca.mp3" ></audio>
+                    <audio id="banjoSound" crossorigin="anonymous" src="/assets/sound/Antarctica/penguin.mp3" ></audio>
+                    <audio id="jamaicaSound" crossorigin="anonymous" src="/assets/sound/Antarctica/arctic.mp3" ></audio>
+
+                    <template id="avatar-template">
+                        <a-entity class="avatar">
+                        <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="1 1 1" rotation="0 180 0" shadow="cast:true; receive:true;"></a-entity>
+                          </a-entity>
+                        </a-entity>
+                      </template>
+                      <img crossorigin="anonymous" id="snowmap" src="/assets/textures/snowman_tex.png">
+                    
+                      <a-asset-item crossorigin="anonymous" id="snowman" src="/assets/models/snowman.obj"></a-asset-item>
+                   
+                </a-assets>
+
+                <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera position="-158 15 527" spawn-in-circle="radius:3;" look-controls wasd-controls="acceleration: 270" >
+                    <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
+                    </a-entity>
+                </a-entity>
+
+                <a-entity id="dSound" sound="src:#drumSound"></a-entity>
+                <a-entity id="oSound" sound="src:#marSound"></a-entity>
+                <a-entity id="kSound" sound="src:#banjoSound"></a-entity>
+                <a-entity id="eSound" sound="src:#jamaicaSound"></a-entity>
+                    
+                <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
+                <a-entity light="type: ambient; intensity: 0.8; color:#bbb;"></a-entity>
+                
+
+                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.4 0.4 0.4" rotation="0 90 0" position=" -310 -15 192" shadow="cast:true; receive:true;"></a-entity>
+                
+                <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="8 8 8" position=" -60 -8.8 376" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="8 8 8" position=" -73 -7.8 376" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="8 8 8" position=" -86.5 -7.8 376" shadow="cast:true; receive:true;"></a-entity>
+                
+                <a-entity create-sound-component obj-model="obj: #steel" material ="src: #steelmap" scale="8 8 8" position=" -258 -7.5 61" rotation="0 0 0" shadow="cast:true; receive:true;">
+                </a-entity>
+            
+                </a-entity>
+                <a-entity create-soundtwo-component obj-model="obj: #mar" material ="src: #marmap" scale="1 1 1" position="-287 7 69" rotation="0 0 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="rotation" begin="mouseenter" dur="500" to="360 360 35"></a-animation> 
+                    <a-animation attribute="position" begin="mouseenter" to="-287 9 69" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                    
+                    
+                </a-entity>
+
+                <a-entity create-soundthree-component obj-model="obj: #banjo" material ="src: #banjomap" scale="2 2 2" position="-331.6 14 44" rotation="-5 90 90" shadow="cast:true; receive:true;">
+                    <a-animation attribute="position" begin="mouseenter" to="-331.6 19 44" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+                </a-entity>
+
+               
+                <a-entity id="sky"
+                    geometry="primitive:sphere; radius:750;"
+                    material="shader:flat; src:#skymap; side:back; height:2048; width:2048"
+                    rotation="0 90 0"></a-entity>
+        </a-scene>
+        <script>
+            
+            NAF.schemas.add({
+              template: '#avatar-template',
+              components: [
+                'position',
+                'rotation'
+              ]
+            });
+        </script>
+    </body>
+</html>
