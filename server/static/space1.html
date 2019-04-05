@@ -20,6 +20,7 @@
                     <img crossorigin="anonymous" id="worldmap" src="/assets/textures/atlantic_tex.png">
                     <img crossorigin="anonymous" id="boatmap" src="/assets/textures/boat_tex.png">
                     <img crossorigin="anonymous" id="dicemap" src="/assets/textures/dice.png">
+                    <img crossorigin="anonymous" id="infomap" src="/assets/textures/infoBlock_texture.png">
                     
                     <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/Ocean.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
@@ -49,6 +50,7 @@
                   <a-animation attribute="position" to="87 -6 -345" direction="alternate" dur="60000" repeat="indefinite"></a-animation>
                 </a-entity>
                 <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="10 10 10" position=" 40 3 -5" shadow="cast:true; receive:true;"></a-entity> 
+                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="10 10 10" position=" 60 3 -5" shadow="cast:true; receive:true;"></a-entity> 
                 
             
                 <a-entity id="sky"
