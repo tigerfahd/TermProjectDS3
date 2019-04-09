@@ -25,7 +25,8 @@
         <a-scene networked-scene="  app: myApp;
         room: room1;
         debug: true;
-        adapter: easyrtc;"
+        adapter: easyrtc;
+        audio: true;"
         shadow="type:basic;">
                 <a-assets timeout="10000">
 
@@ -53,7 +54,7 @@
                     <audio id="jamaicaSound" crossorigin="anonymous" src="/assets/sound/Jamaica/jamaica.mp3" ></audio>
 
                     <template id="avatar-template">
-                        <a-entity class="avatar">
+                        <a-entity class="avatar" networked-audio-source>
                         <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="1 1 1" rotation="0 180 0" shadow="cast:true; receive:true;"></a-entity>
                           </a-entity>
                         </a-entity>

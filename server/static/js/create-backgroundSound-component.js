@@ -3,9 +3,10 @@ AFRAME.registerComponent('create-backgroundSound-component', {
     init : function() {
         const Context_AF = this;
 
-        window.addEventListener('load', function(event) {
-            console.log("background play");
-            Context_AF.soundElem = document.querySelector('#eSound');
+        Context_AF.el.addEventListener('click', function(event) {
+            console.log("click");
+            Context_AF.soundElem = document.querySelector('#back');
+            Context_AF.soundElem.components['sound'].stopSound(); 
             Context_AF.soundElem.components['sound'].playSound();
         });
 

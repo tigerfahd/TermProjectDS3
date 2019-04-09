@@ -26,7 +26,8 @@
         <a-scene networked-scene="  app: myApp;
         room: room1;
         debug: true;
-        adapter: easyrtc;"
+        adapter: easyrtc;
+        audio: true;"
         shadow="type:basic;">
                 <a-assets timeout="10000">
 
@@ -46,6 +47,7 @@
                     
 
                     <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="info" src="/assets/models/dice.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/IndiaWorld.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="kanjira" src="/assets/models/kanjira.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="tabla" src="/assets/models/tabla.obj"></a-asset-item>
@@ -59,7 +61,7 @@
                     <audio id="indiaSound" crossorigin="anonymous" src="/assets/sound/India/Hanuman Chalisa.mp3" ></audio>
 
                     <template id="avatar-template">
-                        <a-entity class="avatar">
+                        <a-entity class="avatar" networked-audio-source>
                         <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="1 1 1" rotation="0 180 0" shadow="cast:true; receive:true;"></a-entity>
                           </a-entity>
                         </a-entity>
@@ -87,7 +89,7 @@
                 
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="12 12 12" position=" -331 -3 290" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="12 12 12" position=" -308 0.5 290" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="12 12 12" position=" -292 0.5 290" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-card-component obj-model="obj: #info" material ="src: #infomap" scale="12 12 12" position=" -292 0.5 290" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity create-soundthree-component obj-model="obj: #kanjira" material ="src: #kanmap" scale="10 10 10" position=" 5 27 155" rotation="0 0 0" shadow="cast:true; receive:true;">
                     <a-animation attribute="rotation" begin="mouseenter" to="90 0 0"></a-animation>

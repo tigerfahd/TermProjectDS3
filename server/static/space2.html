@@ -10,6 +10,7 @@
         <script src="/js/create-soundtwo-component.js"></script>
         <script src="/js/roll-dice-component.js"></script>
         <script src="/js/create-card-component.js"></script>
+        <script src="/js/remove-component.js"></script>
         <script src="/js/go-map-component.js"></script>
         <script src="/js/spawn-in-circle.component.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
@@ -21,7 +22,8 @@
         <a-scene networked-scene="  app: myApp;
         room: room1;
         debug: true;
-        adapter: easyrtc;"
+        adapter: easyrtc;
+        audio: true;"
         shadow="type:basic;">
                 <a-assets timeout="3000">
                     
@@ -34,20 +36,22 @@
                     <img crossorigin="anonymous" id="oudmap" src="/assets/textures/oud_texture.png">
                     <img crossorigin="anonymous" id="infomap" src="/assets/textures/infoBlock_texture.png">
                     <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/World.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/dice.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="info" src="/assets/models/dice.obj"></a-asset-item>
                     <img crossorigin="anonymous" id="globemap" src="/assets/textures/globe_texture.png">
                     
                     <a-asset-item crossorigin="anonymous" id="scroll" src="/assets/models/Hieroglyphics.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="doumbek" src="/assets/models/Doumbek_Final.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="oud" src="/assets/models/Oud_Final.obj"></a-asset-item>
-                    <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="info" src="/assets/models/dice.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="globe" src="/assets/models/globe.obj"></a-asset-item>
                     <audio id="doumbekSound" crossorigin="anonymous" src="/assets/sound/Egypt/Doumbek.mp3" ></audio>
                     <audio id="oudSound" crossorigin="anonymous" src="/assets/sound/Egypt/Oud.mp3" ></audio>
                     <audio id="egyptSound" crossorigin="anonymous" src="/assets/sound/Egypt/Desert_Caravan (Trimmed).mp3" ></audio>
+                    <audio id="back" src="/assets/sound/back.mp3" preload="auto" ></audio>
 
-                    <template id="avatar-template">
-                        <a-entity class="avatar">
+                    <template id="avatar-template" >
+                        <a-entity class="avatar" networked-audio-source>
                         <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="1 1 1" rotation="0 180 0" shadow="cast:true; receive:true;"></a-entity>
                           </a-entity>
                         </a-entity>
@@ -61,6 +65,7 @@
                 <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera position="3 3 90" spawn-in-circle="radius:3;" look-controls wasd-controls="acceleration: 270" >
                     <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
                     </a-entity>
+                    
                 </a-entity>
 
 
@@ -73,13 +78,12 @@
                 <a-entity light="type: ambient; intensity: 1.0; color:#bbb;"></a-entity>
                 
                 
-                <a-entity create-backgroundSound-component obj-model="obj: #world" material ="src: #worldmap" scale="0.1 0.1 0.1" position=" 0 -1 0" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity  obj-model="obj: #world" material ="src: #worldmap" scale="0.1 0.1 0.1" position=" 0 -1 0" shadow="cast:true; receive:true;"></a-entity>
 
                 <a-entity id="dice" roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="3 3 3" position=" 25 -0.5 58" shadow="cast:true; receive:true;">
-                    <a-animation attribute="position" begin="mouseenter" dur="500" to="25 3 58"></a-animation>
-                    <a-animation attribute="rotation" begin="mouseenter" dur="500" to="360 -90 45"></a-animation>
+                    
                 </a-entity>
-                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="3 3 3" position=" 20 -0.5 58" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-card-component obj-model="obj: #info" material ="src: #infomap" scale="3 3 3" position=" 20 -0.5 58" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="3 3 3" position=" 30 -0.5 58" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity create-sound-component obj-model="obj: #doumbek" material ="src: #doumbekmap" scale="2.5 2.5 2.5" position=" 20 1.2 48" rotation="45 0 0" shadow="cast:true; receive:true;">
                     <a-animation attribute="position" begin="mouseenter" to="20 1.8 48" direction="alternate" dur="2000" repeat="indefinite"></a-animation>

@@ -5,7 +5,7 @@
         <meta name="description" content="">
         <script src="/js/aframe.min.js"></script>
         <script src="/js/spherical-env-map.js"></script>
-        
+        <script src="/js/go-back-component.js"></script>
 
     </head>
     <body>
@@ -24,7 +24,7 @@
                
                 </a-assets>
 
-                <a-entity position="0 50 340" camera look-controls wasd-controls="acceleration: 270">
+                <a-entity position="0 75 340" camera look-controls wasd-controls="acceleration: 270">
               
                     <a-entity   cursor="fuse:true; fuseTimeout:500; rayOrigin:mouse;" >
                     </a-entity>
@@ -36,12 +36,12 @@
             
                 
                 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="2 2 2" position=" 0 -40 0" shadow="cast:true; receive:true;">
-                    <a-animation attribute="rotation" to="0 360 0" dur="30000" repeat="indefinite"></a-animation>
-                    <a-animation attribute="scale" begin="mouseenter" to="2.5 2.5 2.5" dur="500"></a-animation>
-                    <a-animation attribute="scale" begin="mouseleave" to="2 2 2" dur="500"></a-animation>
+                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="1 1 1" position=" 0 -60 0" shadow="cast:true; receive:true;">
+                    <a-animation attribute="rotation" to="0 360 0" dur="30000" easing="linear" repeat="indefinite"></a-animation>
+                    <a-animation attribute="scale" begin="mouseenter" to="1.4 1.4 1.4" dur="500"></a-animation>
+                    <a-animation attribute="scale" begin="mouseleave" to="1 1 1" dur="500"></a-animation>
                 </a-entity>
-                <a-entity obj-model="obj: #globe" material ="src: #globemap" scale="55 55 55" position=" 0 -45 0" shadow="cast:true; receive:true;">
+                <a-entity go-back-component obj-model="obj: #globe" material ="src: #globemap" scale="55 55 55" position=" 0 105 0" shadow="cast:true; receive:true;">
                   
                 </a-entity>
                 

@@ -25,7 +25,8 @@
         <a-scene networked-scene="  app: myApp;
         room: room1;
         debug: true;
-        adapter: easyrtc;"
+        adapter: easyrtc;
+        audio: true;"
         shadow="type:basic;">
                 <a-assets timeout="10000">
 
@@ -42,6 +43,7 @@
                     <img crossorigin="anonymous" id="globemap" src="/assets/textures/globe_texture.png">
 
                     <a-asset-item crossorigin="anonymous" id="dice" src="/assets/models/dice.obj"></a-asset-item>
+                    <a-asset-item crossorigin="anonymous" id="info" src="/assets/models/dice.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="world" src="/assets/models/Greece_V3.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="zurna" src="/assets/models/zurna.obj"></a-asset-item>
                     <a-asset-item crossorigin="anonymous" id="guitar" src="/assets/models/guitar.obj"></a-asset-item>
@@ -54,7 +56,7 @@
                     <audio id="greeceSound" crossorigin="anonymous" src="/assets/sound/Greece/GreekMusic.mp3" ></audio>
 
                     <template id="avatar-template">
-                        <a-entity class="avatar">
+                        <a-entity class="avatar" networked-audio-source>
                         <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="1 1 1" rotation="0 180 0" shadow="cast:true; receive:true;"></a-entity>
                           </a-entity>
                         </a-entity>
@@ -85,7 +87,7 @@
                 
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="6 6 6" position=" 74 -2 99" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="6 6 6" position=" 63 0.5 99" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="6 6 6" position=" 54 0.5 99" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-card-component obj-model="obj: #info" material ="src: #infomap" scale="6 6 6" position=" 54 0.5 99" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity create-soundthree-component obj-model="obj: #guitar" material ="src: #guitarmap" scale="0.1 0.1 0.1" position=" -38 0.76 90" rotation="360 225 45" shadow="cast:true; receive:true;">
                     <a-animation attribute="position" begin="mouseenter" to="-38 4.8 90" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
