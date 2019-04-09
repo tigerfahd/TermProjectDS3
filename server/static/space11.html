@@ -6,6 +6,7 @@
         <script src="/js/aframe.min.js"></script>
         <script src="/js/spherical-env-map.js"></script>
         <script src="/js/roll-dice-component.js"></script>
+        <script src="/js/create-soundfour-component.js"></script> 
         <script src="/js/create-card-component.js"></script>
         <script src="/js/remove-component.js"></script>
         <script src="/js/create-sound-component.js"></script>
@@ -26,7 +27,7 @@
         room: room1;
         debug: true;
         adapter: easyrtc;
-        audio: true;"
+        audio: true;" 
         shadow="type:basic;">
                 <a-assets timeout="10000">
 
@@ -51,7 +52,7 @@
                     <audio id="sealSound" crossorigin="anonymous" src="/assets/sound/Antarctica/seal.mp3" ></audio>
                     <audio id="orcaSound" crossorigin="anonymous" src="/assets/sound/Antarctica/orca.mp3" ></audio>
                     <audio id="penSound" crossorigin="anonymous" src="/assets/sound/Antarctica/penguin.mp3" ></audio>
-                    <audio id="arcticSound" crossorigin="anonymous" src="/assets/sound/Antarctica/arctic.mp3" ></audio>
+                    <audio id="back" crossorigin="anonymous" src="/assets/sound/Antarctica/arctic.mp3" ></audio>
 
                     <template id="avatar-template">
                         <a-entity class="avatar" networked-audio-source>
@@ -70,19 +71,22 @@
                     </a-entity>
                 </a-entity>
 
-                <a-entity id="dSound" sound="src:#sealSound"></a-entity>
-                <a-entity id="oSound" sound="src:#orcaSound"></a-entity>
-                <a-entity id="kSound" sound="src:#penSound"></a-entity>
-                <a-entity id="eSound" sound="src:#arcticSound"></a-entity>
+                <a-entity id="dSound" sound="src:#sealSound; volume: 5"></a-entity>
+                <a-entity id="oSound" sound="src:#orcaSound; volume: 5"></a-entity>
+                <a-entity id="kSound" sound="src:#penSound; volume: 5"></a-entity>
+                <a-entity id="zSound" sound="src:#back; loop: true; volume: 5"></a-entity>
                     
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 0.8; color:#bbb;"></a-entity>
                 
 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.4 0.4 0.4" rotation="0 90 0" position=" 11.4 -25 192" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-soundfour-component obj-model="obj: #world" material ="src: #worldmap" scale="0.4 0.4 0.4" rotation="0 90 0" position=" 11.4 -25 192" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="8 8 8" position=" -60 -8.8 376" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="8 8 8" position=" -73 -7.8 376" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="8 8 8" position=" -73 -7.8 376" shadow="cast:true; receive:true;">
+                        <a-animation attribute="position" begin="click" to="-73 5 376" dur="500"></a-animation>
+                        <a-animation attribute="rotation" begin="click" dur="1000" to="360 460 135"></a-animation>
+                </a-entity>
                 <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="8 8 8" position=" -86.5 -7.8 376" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity create-sound-component obj-model="obj: #seal" material ="src: #sealmap" scale="8 8 8" position=" -22 -15.5 300" rotation="0 180 0" shadow="cast:true; receive:true;">

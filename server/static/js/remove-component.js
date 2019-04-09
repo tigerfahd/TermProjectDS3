@@ -6,7 +6,7 @@ AFRAME.registerComponent('remove-component', {
 
         Context_AF.el.addEventListener('click', function(event) {
             console.log("click");
-            //object clicked - lets create a cow!
+          
             Context_AF.deleteMyself();
 
 

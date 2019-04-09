@@ -11,6 +11,7 @@
         <script src="/js/create-sound-component.js"></script>
         <script src="/js/create-backgroundSound-component.js"></script>
         <script src="/js/create-soundtwo-component.js"></script>
+        <script src="/js/create-soundfour-component.js"></script>
         <script src="/js/create-soundthree-component.js"></script>
         <script src="/js/go-map-component.js"></script>
         <script src="/js/spawn-in-circle.component.js"></script>
@@ -53,7 +54,7 @@
                     <audio id="zurnaSound" crossorigin="anonymous" src="/assets/sound/Greece/Zurna.mp3" ></audio>
                     <audio id="swooshSound" crossorigin="anonymous" src="/assets/sound/Greece/swoosh.mp3" ></audio>
                     <audio id="guitarSound" crossorigin="anonymous" src="/assets/sound/Greece/Guitar.mp3" ></audio>
-                    <audio id="greeceSound" crossorigin="anonymous" src="/assets/sound/Greece/GreekMusic.mp3" ></audio>
+                    <audio id="back" crossorigin="anonymous" src="/assets/sound/Greece/GreekMusic.mp3" ></audio>
 
                     <template id="avatar-template">
                         <a-entity class="avatar" networked-audio-source>
@@ -73,20 +74,23 @@
                     </a-entity>
                 </a-entity>
                 
-                <a-entity id="dSound" sound="src:#zurnaSound"></a-entity>
-                <a-entity id="oSound" sound="src:#swooshSound"></a-entity>
-                <a-entity id="kSound" sound="src:#guitarSound"></a-entity>
-                <a-entity id="eSound" sound="src:#greeceSound"></a-entity>
-                    
+                <a-entity id="dSound" sound="src:#zurnaSound; volume: 5"></a-entity>
+                <a-entity id="oSound" sound="src:#swooshSound; volume: 15"></a-entity>
+                <a-entity id="kSound" sound="src:#guitarSound; volume: 25"></a-entity>
+                <a-entity id="zSound" sound="src:#back; loop: true; volume: 2"></a-entity>
+
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 1.0; color:#bbb;"></a-entity>
 
                 
 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.25 0.25 0.25" rotation="0 180 0" position=" 0 -20 0" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-soundfour-component obj-model="obj: #world" material ="src: #worldmap" scale="0.25 0.25 0.25" rotation="0 180 0" position=" 0 -20 0" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="6 6 6" position=" 74 -2 99" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="6 6 6" position=" 63 0.5 99" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="6 6 6" position=" 63 0.5 99" shadow="cast:true; receive:true;">
+                        <a-animation attribute="position" begin="click" to="63 5 99" dur="500"></a-animation>
+                        <a-animation attribute="rotation" begin="click" dur="1000" to="360 500 195"></a-animation>
+                </a-entity>
                 <a-entity create-card-component obj-model="obj: #info" material ="src: #infomap" scale="6 6 6" position=" 54 0.5 99" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity create-soundthree-component obj-model="obj: #guitar" material ="src: #guitarmap" scale="0.1 0.1 0.1" position=" -38 0.76 90" rotation="360 225 45" shadow="cast:true; receive:true;">

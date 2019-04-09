@@ -8,6 +8,7 @@
         <script src="/js/roll-dice-component.js"></script>
         <script src="/js/create-card-component.js"></script>
         <script src="/js/remove-component.js"></script>
+        <script src="/js/create-soundfour-component.js"></script>
         <script src="/js/create-sound-component.js"></script>
         <script src="/js/create-backgroundSound-component.js"></script>
         <script src="/js/create-soundtwo-component.js"></script>
@@ -51,11 +52,11 @@
                     <audio id="drumSound" crossorigin="anonymous" src="/assets/sound/Jamaica/steelDrums.mp3" ></audio>
                     <audio id="marSound" crossorigin="anonymous" src="/assets/sound/Jamaica/maracas.mp3" ></audio>
                     <audio id="banjoSound" crossorigin="anonymous" src="/assets/sound/Jamaica/banjo.mp3" ></audio>
-                    <audio id="jamaicaSound" crossorigin="anonymous" src="/assets/sound/Jamaica/jamaica.mp3" ></audio>
+                    <audio id="back" crossorigin="anonymous" src="/assets/sound/Jamaica/jamaica.mp3" ></audio>
 
                     <template id="avatar-template">
                         <a-entity class="avatar" networked-audio-source>
-                        <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="1 1 1" rotation="0 180 0" shadow="cast:true; receive:true;"></a-entity>
+                        <a-entity obj-model="obj: #snowman" material ="src: #snowmap" scale="10 10 10" rotation="0 180 0" shadow="cast:true; receive:true;"></a-entity>
                           </a-entity>
                         </a-entity>
                       </template>
@@ -70,19 +71,22 @@
                     </a-entity>
                 </a-entity>
 
-                <a-entity id="dSound" sound="src:#drumSound"></a-entity>
-                <a-entity id="oSound" sound="src:#marSound"></a-entity>
-                <a-entity id="kSound" sound="src:#banjoSound"></a-entity>
-                <a-entity id="eSound" sound="src:#jamaicaSound"></a-entity>
+                <a-entity id="dSound" sound="src:#drumSound; volume: 5"></a-entity>
+                <a-entity id="oSound" sound="src:#marSound; volume: 5"></a-entity> 
+                <a-entity id="kSound" sound="src:#banjoSound; volume: 5"></a-entity>
+                <a-entity id="zSound" sound="src:#back; loop: true; volume: 1.5"></a-entity>
                     
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 0.8; color:#bbb;"></a-entity>
                 
 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.4 0.4 0.4" rotation="0 90 0" position=" -310 -15 192" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-soundfour-component obj-model="obj: #world" material ="src: #worldmap" scale="0.4 0.4 0.4" rotation="0 90 0" position=" -310 -15 192" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="8 8 8" position=" -60 -8.8 376" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="8 8 8" position=" -73 -7.8 376" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="8 8 8" position=" -73 -7.8 376" shadow="cast:true; receive:true;">
+                        <a-animation attribute="position" begin="click" to="-73 5 376" dur="500"></a-animation>
+                        <a-animation attribute="rotation" begin="click" dur="1000" to="360 400 195"></a-animation>
+                </a-entity>
                 <a-entity create-card-component obj-model="obj: #dice" material ="src: #infomap" scale="8 8 8" position=" -86.5 -7.8 376" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity create-sound-component obj-model="obj: #steel" material ="src: #steelmap" scale="8 8 8" position=" -258 -7.5 61" rotation="0 0 0" shadow="cast:true; receive:true;">

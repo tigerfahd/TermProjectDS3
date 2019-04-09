@@ -6,7 +6,7 @@
         <script src="/js/aframe.min.js"></script>
         <script src="/js/spherical-env-map.js"></script>
         <script src="/js/create-sound-component.js"></script>
-        <script src="/js/create-backgroundSound-component.js"></script>
+        <script src="/js/create-soundfour-component.js"></script>
         <script src="/js/create-soundtwo-component.js"></script>
         <script src="/js/roll-dice-component.js"></script>
         <script src="/js/create-card-component.js"></script>
@@ -47,8 +47,8 @@
                     <a-asset-item crossorigin="anonymous" id="globe" src="/assets/models/globe.obj"></a-asset-item>
                     <audio id="doumbekSound" crossorigin="anonymous" src="/assets/sound/Egypt/Doumbek.mp3" ></audio>
                     <audio id="oudSound" crossorigin="anonymous" src="/assets/sound/Egypt/Oud.mp3" ></audio>
-                    <audio id="egyptSound" crossorigin="anonymous" src="/assets/sound/Egypt/Desert_Caravan (Trimmed).mp3" ></audio>
-                    <audio id="back" src="/assets/sound/back.mp3" preload="auto" ></audio>
+                    <audio id="back" crossorigin="anonymous" src="/assets/sound/Egypt/Desert_Caravan (Trimmed).mp3" ></audio> 
+                   
 
                     <template id="avatar-template" >
                         <a-entity class="avatar" networked-audio-source>
@@ -69,19 +69,21 @@
                 </a-entity>
 
 
-                <a-entity id="dSound" sound="src:#doumbekSound"></a-entity>
-                <a-entity id="oSound" sound="src:#oudSound"></a-entity>
-                <a-entity id="eSound" sound="src:#egyptSound"></a-entity>
+                <a-entity id="dSound" sound="src:#doumbekSound; volume: 6"></a-entity>
+                <a-entity id="oSound" sound="src:#oudSound; volume: 5"></a-entity>
+                <a-entity id="zSound" sound="src:#back; loop: true"></a-entity>
+         
               
                 
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 1.0; color:#bbb;"></a-entity>
                 
                 
-                <a-entity  obj-model="obj: #world" material ="src: #worldmap" scale="0.1 0.1 0.1" position=" 0 -1 0" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-soundfour-component obj-model="obj: #world" material ="src: #worldmap" scale="0.1 0.1 0.1" position=" 0 -1 0" shadow="cast:true; receive:true;"></a-entity>
 
                 <a-entity id="dice" roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="3 3 3" position=" 25 -0.5 58" shadow="cast:true; receive:true;">
-                    
+                    <a-animation attribute="position" begin="click" to="25 2.8 58" direction="alternate" dur="500"></a-animation>
+                    <a-animation attribute="rotation" begin="click" dur="1000" to="360 450 135"></a-animation> 
                 </a-entity>
                 <a-entity create-card-component obj-model="obj: #info" material ="src: #infomap" scale="3 3 3" position=" 20 -0.5 58" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="3 3 3" position=" 30 -0.5 58" shadow="cast:true; receive:true;"></a-entity>

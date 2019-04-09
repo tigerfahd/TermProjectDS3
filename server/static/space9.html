@@ -6,6 +6,7 @@
         <script src="/js/aframe.min.js"></script>
         <script src="/js/spherical-env-map.js"></script>
         <script src="/js/roll-dice-component.js"></script>
+        <script src="/js/create-soundfour-component.js"></script>
         <script src="/js/create-card-component.js"></script>
         <script src="/js/remove-component.js"></script>
         <script src="/js/create-sound-component.js"></script>
@@ -52,7 +53,7 @@
                     <audio id="panSound" crossorigin="anonymous" src="/assets/sound/Peru/panFlute.mp3" ></audio>
                     <audio id="charSound" crossorigin="anonymous" src="/assets/sound/Peru/charango.mp3" ></audio>
                     <audio id="quenaSound" crossorigin="anonymous" src="/assets/sound/Peru/quena.mp3" ></audio>
-                    <audio id="peruSound" crossorigin="anonymous" src="/assets/sound/Peru/peru.mp3" ></audio>
+                    <audio id="back" crossorigin="anonymous" src="/assets/sound/Peru/peru.mp3" ></audio>
 
                     <template id="avatar-template">
                         <a-entity class="avatar" networked-audio-source>
@@ -71,19 +72,22 @@
                     </a-entity>
                 </a-entity>
 
-                <a-entity id="dSound" sound="src:#panSound"></a-entity>
-                <a-entity id="oSound" sound="src:#charSound"></a-entity>
-                <a-entity id="kSound" sound="src:#quenaSound"></a-entity>
-                <a-entity id="eSound" sound="src:#peruSound"></a-entity>
+                <a-entity id="dSound" sound="src:#panSound; volume: 5"></a-entity>
+                <a-entity id="oSound" sound="src:#charSound; volume: 10"></a-entity>
+                <a-entity id="kSound" sound="src:#quenaSound; volume: 5"></a-entity> 
+                <a-entity id="zSound" sound="src:#back; loop: true"></a-entity>
                     
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 0.8; color:#bbb;"></a-entity>
                 
 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.3 0.3 0.3" rotation="0 -90 0" position=" 0 -5 192" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-soundfour-component obj-model="obj: #world" material ="src: #worldmap" scale="0.3 0.3 0.3" rotation="0 -90 0" position=" 0 -5 192" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="5 5 5" position=" 60 -1 383" shadow="cast:true; receive:true;"></a-entity>
-                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="5 5 5" position=" 70 -2 383" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="5 5 5" position=" 70 -2 383" shadow="cast:true; receive:true;">
+                        <a-animation attribute="position" begin="click" to="70 10 383" dur="500"></a-animation>
+                        <a-animation attribute="rotation" begin="click" dur="1000" to="360 270 135"></a-animation>
+                </a-entity>
                 <a-entity create-card-component obj-model="obj: #info" material ="src: #infomap" scale="5 5 5" position=" 80 -2 383" shadow="cast:true; receive:true;"></a-entity>
                 
                 <a-entity create-sound-component obj-model="obj: #pan" material ="src: #panmap" scale="0.1 0.1 0.1" position=" 25 8 344" rotation="35 0 90" shadow="cast:true; receive:true;">

@@ -8,6 +8,7 @@
         <script src="/js/roll-dice-component.js"></script>
         <script src="/js/create-card-component.js"></script>
         <script src="/js/remove-component.js"></script>
+        <script src="/js/create-soundfour-component.js"></script> 
         <script src="/js/create-sound-component.js"></script>
         <script src="/js/create-backgroundSound-component.js"></script>
         <script src="/js/create-soundtwo-component.js"></script>
@@ -55,7 +56,7 @@
                     <audio id="denSound" crossorigin="anonymous" src="/assets/sound/Japan/Den Den Daiko Sound Effect.mp3" ></audio>
                     <audio id="shamSound" crossorigin="anonymous" src="/assets/sound/Japan/Shamisen Sound Effect.mp3" ></audio>
                     <audio id="katSound" crossorigin="anonymous" src="/assets/sound/Japan/Sword Sound Effect.mp3" ></audio>
-                    <audio id="japanSound" crossorigin="anonymous" src="/assets/sound/Japan/Japanese Background Music.mp3" ></audio>
+                    <audio id="back" crossorigin="anonymous" src="/assets/sound/Japan/Japanese Background Music.mp3" ></audio>
 
                     <template id="avatar-template">
                         <a-entity class="avatar" networked-audio-source>
@@ -74,11 +75,10 @@
                     </a-entity>
                 </a-entity>
 
-                <a-entity id="dSound" sound="src:#denSound"></a-entity>
-                <a-entity id="oSound" sound="src:#shamSound"></a-entity>
-                <a-entity id="kSound" sound="src:#katSound"></a-entity>
-                <a-entity id="eSound" sound="src:#japanSound"></a-entity>
-            
+                <a-entity id="dSound" sound="src:#denSound; volume: 5"></a-entity>
+                <a-entity id="oSound" sound="src:#shamSound; volume: 5"></a-entity>
+                <a-entity id="kSound" sound="src:#katSound; volume: 5"></a-entity>
+                <a-entity id="zSound" sound="src:#back; loop: true; volume: 1"></a-entity>
                     
                 <a-entity light="type:directional; castShadow:true; intensity:0.6; shadowBias:-0.000001; shadowMapWidth:1024; shadowMapHeight:1024;" position="-0.5 1 1"></a-entity>
                 <a-entity light="type: ambient; intensity: 1.0; color:#bbb;"></a-entity>
@@ -86,10 +86,11 @@
                 <a-entity position="0 40 0" particle-system="preset: snow; texture: /assets/textures/petal.png; size:5; accelerationValue:0,20,0; velocityValue:0,50,0 color:#ffb5e2,#fc93d2;"></a-entity>
                 
 
-                <a-entity obj-model="obj: #world" material ="src: #worldmap" scale="0.18 0.18 0.18" position=" 0 -5 0" shadow="cast:true; receive:true;"></a-entity>
+                <a-entity create-soundfour-component obj-model="obj: #world" material ="src: #worldmap" scale="0.18 0.18 0.18" position=" 0 -5 0" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity go-map-component obj-model="obj: #globe" material ="src: #globemap" scale="6 6 6" position=" 60 0.5 68" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity roll-dice-component obj-model="obj: #dice" material ="src: #dicemap" scale="6 6 6" position=" 50 0.5 68" shadow="cast:true; receive:true;">
-                    
+                        <a-animation attribute="position" begin="click" to="50 10 68" direction="alternate" dur="500"></a-animation>
+                        <a-animation attribute="rotation" begin="click" dur="1000" to="360 450 135"></a-animation>
                 </a-entity>
                 <a-entity create-card-component obj-model="obj: #info" material ="src: #infomap" scale="6 6 6" position=" 40 0.5 68" shadow="cast:true; receive:true;"></a-entity>
                 <a-entity create-sound-component obj-model="obj: #drum" material ="src: #drummap" scale="2.5 2.5 2.5" position=" -121 11.8 -24" rotation="360 225 45" shadow="cast:true; receive:true;">

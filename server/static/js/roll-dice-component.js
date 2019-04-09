@@ -237,7 +237,7 @@ AFRAME.registerComponent('roll-dice-component', {
           break;
       
           case 11:
-            linkEl.setAttribute('image', '/assets/textures/Antarctica.jpg'); 
+            linkEl.setAttribute('image', '/assets/textures/Antartica.jpg'); 
             linkEl.setAttribute('title', 'Antarctica'); 
           break;
         }

@@ -48,7 +48,7 @@ AFRAME.registerComponent('create-card-component', {
                 cardEl.setAttribute('scale', {x:0.04, y:0.04, z:0.04});
               break;
             case 3:
-                cardEl.setAttribute('obj-model', {obj:'/assets/PropertyCard_Japan.obj'});
+                cardEl.setAttribute('obj-model', {obj:'/assets/models/PropertyCard_Japan.obj'});
                 cardEl.setAttribute('material', {src:'/assets/textures/PropertyCard_IndianOcean.png'});
                 cardEl.setAttribute('position', {x:5, y:7, z:58});
                 cardEl.setAttribute('scale', {x:0.4, y:0.4, z:0.4});
